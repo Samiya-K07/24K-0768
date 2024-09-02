@@ -4,4 +4,4 @@
 
 I am a CS undergraduate at FAST University
 
-I love learing new techonologies and recently enjoy problem solving as well👾
+I love learning new techonologies and recently enjoy problem solving as well👾
