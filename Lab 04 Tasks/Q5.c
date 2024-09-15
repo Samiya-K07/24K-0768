@@ -10,15 +10,10 @@ int main () {
 
 int customer_id, units_consumed; //Initialization
 float amount_charges, surcharge_amount, net_amount; //Initialization
-char name[100]; //Array to store the name with a maximum of 99 characters
 
     printf("Enter customer ID: "); //Prompt the user for customer id
     scanf("%d", &customer_id); 
     
-    printf("Enter customer name: "); //Prompt the user for customer name
-    //Read a string from the user
-    scanf("%99s", &name);
-
     printf("Enter the number of units consumed: "); //Prompt the user for units consumed
     scanf("%d", &units_consumed);
 
@@ -26,9 +21,6 @@ char name[100]; //Array to store the name with a maximum of 99 characters
     {amount_charges = units_consumed*16.20;
     //Print the ID
     printf("Customer ID: %d\n", customer_id);
-    
-    //Print the name
-    printf("Customer Name: %s\n", name);
     
     //Print the amount charges if true
     printf("Amount Charges @Rs16.20 per unit: %.2f \n", amount_charges);} 
@@ -38,9 +30,6 @@ char name[100]; //Array to store the name with a maximum of 99 characters
     {amount_charges = units_consumed*20.10;
     //Print the ID
     printf("Customer ID: %d\n", customer_id);
-    
-    //Print the name
-    printf("Customer Name: %s\n", name);
 
     //Print the amount charges if true
     printf("Amount Charges @Rs20.10 per unit: %.2f \n", amount_charges);} 
@@ -49,9 +38,6 @@ char name[100]; //Array to store the name with a maximum of 99 characters
         {amount_charges = units_consumed*27.10;
         //Print the ID
         printf("Customer ID: %d\n", customer_id);
-    
-        //Print the name
-        printf("Customer Name: %s\n", name);
         
         //Print the amount charges if true
         printf("Amount Charges @Rs27.10 per unit: %.2f \n", amount_charges);} 
@@ -60,9 +46,6 @@ char name[100]; //Array to store the name with a maximum of 99 characters
             {amount_charges = units_consumed*35.90;
              //Print the ID
             printf("Customer ID: %d\n", customer_id);
-    
-            //Print the name
-            printf("Customer Name: %s\n", name);
         
             //Print the amount charges if true
             printf("Amount Charges @Rs.35.90 per unit: %.2f \n", amount_charges); 
@@ -79,4 +62,5 @@ char name[100]; //Array to store the name with a maximum of 99 characters
             }
 
 return 0;    
+}  
 }
