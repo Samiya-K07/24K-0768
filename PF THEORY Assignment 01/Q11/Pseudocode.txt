@@ -1,0 +1,23 @@
+START
+
+INPUT a, b
+
+a > b 
+r = a % b
+
+WHILE r == 0 {
+    
+    r = a%b
+    a = b
+    b = r
+
+} END WHILE
+    
+    IF b == 1
+        PRINT "The numbers are co-prime"
+
+    ELSE 
+        PRINT "The numbers are not co-prime and the GCD is: " b
+
+    END IF
+END

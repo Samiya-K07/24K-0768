@@ -1,0 +1,22 @@
+START
+
+INPUT num
+
+b = num
+sum = 0
+R = 0
+
+WHILE (b != 0) {
+    
+    R = num % 10
+
+    b = num / 10
+
+    sum = R + sum
+
+    num = b
+} 
+END WHILE
+
+PRINT "sum is: " sum
+END

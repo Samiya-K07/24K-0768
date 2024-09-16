@@ -1,0 +1,19 @@
+START
+
+INPUT cash, nkg_onions, onion_price, nkg_grapes, grape_price, nkg_apricots, apricots_price, nkg_tomatoes, tomatoes_price
+
+bill = (nkg_onions * onion_price) + (nkg_grapes * grape_price) + (nkg_apricots * apricots_price) + (nkg_tomatoes * tomatoes_price)
+
+diff = cash - bill
+
+IF diff >= 0
+    
+    IF diff == 0
+        PRINT "No change left. Thank you for shopping!"
+    ELSE
+        PRINT "Here's your change:" diff "Thank you for shopping!"
+    
+ELSE
+    PRINT "Pay full amount! Remaining amount to pay:" diff
+
+END

@@ -1,0 +1,31 @@
+START
+
+INPUT filled 5L_jug, 3L_jug
+
+Empty(5L_jug)
+
+Pour water from 3L_jug to 5L_jug
+
+While (5L_jug is not full) {
+    If (3L_jug is empty) 
+        {Refill(3L_jug)}
+    
+    Pour water from 3L_jug to 5L_jug
+}
+
+If (5L_jug is full) 
+    {Empty(5L_jug)}
+
+Pour(3L_jug, 5L_jug)
+
+If (3L_jug contains 1L) {
+    
+    Empty(5L_jug) 
+    Pour 1L from 3L_jug into 5L_jug
+    Refill(3L_jug) 
+    Pour the water from the 3L_jug into 5L_jug
+}
+
+Place 5L_jug on sensor
+PRINT("The bomb has been defused!!")
+END

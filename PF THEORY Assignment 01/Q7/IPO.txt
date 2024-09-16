@@ -1,0 +1,31 @@
+INPUT:
+ binary_code
+
+PROCEESS:
+1. IF binary_code == "1111110" THEN
+2. PRINT "0th or ground floor"
+3. ELSE IF binary_code == "0110000" THEN
+4. PRINT "1st floor"
+5. ELSE IF binary_code == "1101101" THEN
+6. PRINT"2nd floor"
+7. ELSE IF binary_code == "1111001" THEN
+8. PRINT "3rd floor"
+9. ELSE IF binary_code == "0110011" THEN
+10. PRINT "4th floor"
+11. ELSE IF binary_code == "1011011" THEN
+12. PRINT "5th floor"
+13. ELSE IF binary_code == "0011111" THEN
+14. PRINT "6th floor"
+15. ELSE IF binary_code == "1110000" THEN
+16. PRINT "7th floor"
+17. ELSE IF binary_code == "1111111" THEN
+18. PRINT "8th floor"
+19. ELSE IF binary_code == "1111011" THEN
+20. PRINT "9th floor"
+21. ELSE IF no condition true 
+22. THEN PRINT "Invalid input!!"
+23. END IF
+24. END
+
+OUTPUT:
+Displays which floor you are on according to a pattern of 0s and 1s indicating which lights are on and off

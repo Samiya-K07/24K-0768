@@ -1,0 +1,39 @@
+START
+
+INPUT binary_code
+
+    IF binary_code == "1111110" THEN
+        PRINT "0th or ground floor"
+
+    ELSE IF binary_code == "0110000" THEN
+        PRINT "1st floor"
+
+    ELSE IF binary_code == "1101101" THEN
+        PRINT"2nd floor"
+
+    ELSE IF binary_code == "1111001" THEN
+        PRINT "3rd floor"
+
+    ELSE IF binary_code == "0110011" THEN
+        PRINT "4th floor"
+
+    ELSE IF binary_code == "1011011" THEN
+        PRINT "5th floor"
+
+    ELSE IF binary_code == "0011111" THEN
+        PRINT "6th floor"
+
+    ELSE IF binary_code == "1110000" THEN
+        PRINT "7th floor"
+
+    ELSE IF binary_code == "1111111" THEN
+        PRINT "8th floor"
+
+    ELSE IF binary_code == "1111011" THEN
+        PRINT "9th floor"
+
+    ELSE  
+    PRINT "Invalid input!!"
+    
+    END IF
+END

@@ -1,0 +1,29 @@
+INPUT:
+cash
+nkg_onions
+onion_price
+nkg_grapes
+grape_price
+nkg_apricots
+apricots_price
+nkg_tomatoes
+tomatoes_price
+
+PROCEESS:
+1. bill = (nkg_onions * onion_price) + (nkg_grapes * grape_price) + (nkg_apricots * apricots_price) + (nkg_tomatoes * tomatoes_price)
+2. diff = cash - bill
+3. IF diff >= 0 THEN
+4. IF diff == 0 THEN
+5. PRINT "No change left. Thank you for shopping!"
+6. ELSE PRINT "Here's your change:" diff "Thank you for shopping!"
+7. ELSE IF diff < 0 THEN 
+8. PRINT "Pay full amount! Remaining amount to pay:" diff
+9. END
+
+OUTPUT:
+Keeping in mind the cash the user carriers, how much would he need to pay if on a particular day he buys items making sure 
+that the prices for the items the user bought are taken as input. We also checked that according to the cash the user has,
+if he would need to pay more or if we will get the change back or if he has the exact amount as the bill.  
+
+Basically a gorcery calculator telling if the items he bought require more money than he already has, less money than he already has
+or cost the exact same as the cash he has. 

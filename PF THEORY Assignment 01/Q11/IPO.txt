@@ -1,0 +1,18 @@
+INPUT: a, b
+
+PROCEESS:
+1. a > b 
+2. r = a % b
+3. UNTIL r == 0 loop through:
+4. r = a%b
+5. a = b
+6. b = r
+7. END LOOP
+8. IF b == 1
+9. PRINT "The numbers are co-prime"
+10. ELSE PRINT "The numbers are not co-prime and the GCD is: " b
+11. END the condition
+12. END
+
+OUTPUT:
+If two numbers are given then are they co-prime or not?

@@ -1,0 +1,14 @@
+INPUT:
+a number: n
+
+PROCEESS:
+1. Enter n
+2. If n<=0 then
+3. Print ("Invalid Input (n should be >0)")
+4. Else if n%2 == 0 then
+5. Print (n "is an even number")
+6. Else print (n "is an odd number")
+9. End
+
+OUTPUT:
+n is an "even" or "odd" number

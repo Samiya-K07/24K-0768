@@ -1,0 +1,24 @@
+INPUT:
+height
+age
+ride
+
+PROCEESS:
+1. IF ride == "The Dragon Roller Coaster"
+2. THEN IF height >= 48 AND age >= 10
+3. PRINT "You meet the criteria for the ride"
+4. ELSE PRINT "You do not meet the criteria for the ride"
+5. ELSE IF ride == "The Carousel"
+6. THEN IF age >= 5
+7. PRINT "You meet the criteria for the ride"
+8. ELSE PRINT "You do not meet the criteria for the ride"
+9. ELSE IF ride == "The Sky Swing"
+10. THEN IF height >= 54
+11. PRINT "You meet the criteria for the ride"
+12. ELSE PRINT "You do not meet the criteria for the ride"
+13. ELSE IF no condition is true 
+14. THEN PRINT "Invalid ride!!"
+15. END
+
+OUTPUT:
+If the person is eligible for the ride they have selected by checking if they meet the height and age criteria 

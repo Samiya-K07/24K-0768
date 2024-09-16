@@ -1,0 +1,15 @@
+START
+
+INPUT n (int)
+
+IF n<=0 THEN
+    PRINT ("Invalid Input (n should be >0)")
+    
+ELSE 
+    IF n%2 == 0 THEN
+        PRINT (n "is an even number")
+
+    ELSE 
+        PRINT (n "is an odd number")
+
+END  

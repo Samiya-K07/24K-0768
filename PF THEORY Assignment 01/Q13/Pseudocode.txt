@@ -1,0 +1,38 @@
+//Only works for M-NL jugs where M and N are odd numbers and the difference between them is of 2 litres. The amount of water that can be extracted is one less than NL.
+
+START
+INPUT ML_jug, NL_jug
+
+IF (M != (N-2)) AND (M%2 == 0) AND (N%2==0) {
+    PRINT("Invalid input")}
+    
+ELSE 
+    {PRINT("Valid input")}
+
+Empty(NL_jug)
+
+Pour water from ML_jug to NL_jug
+
+While (NL_jug is not full) {
+    If (ML_jug is empty) 
+        {Refill(ML_jug)}
+    
+    Pour water from ML_jug to NL_jug
+}
+
+If (NL_jug is full) 
+    {Empty(NL_jug)}
+
+Pour(ML_jug, NL_jug)
+
+If (ML_jug contains 1L) {
+    
+    Empty(NL_jug) 
+    Pour 1L from ML_jug into NL_jug
+    Refill(ML_jug) 
+    Pour the water from the ML_jug into NL_jug
+}
+
+Place ML_jug on sensor
+PRINT("The bomb has been defused!!")
+END

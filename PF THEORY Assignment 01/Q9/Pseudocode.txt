@@ -1,0 +1,103 @@
+START
+
+INPUT dob (day of birth), mob (month of birth), yob (year of birth)
+INPUT cd (current day), cm (current month), cy (current year)
+
+IF (mob > 12 OR mob < 1) THEN
+    PRINT "Invalid month"
+    END
+END IF
+ 
+ //Leap Year calculations added in the flowchart
+IF (mob == 2) THEN
+    
+    IF ((cy % 4 == 0 AND cy % 100 != 0) OR (cy % 400 == 0)) THEN
+        IF (dob > 29) THEN
+            PRINT "Invalid Date"
+            END
+        ELSE IF (cd > 29) THEN
+            PRINT "Invalid Date"
+            END
+        END IF
+    
+    ELSE
+        IF (dob > 28 OR cd > 28) THEN
+            PRINT "Invalid Date"
+            END
+        END IF
+    END IF
+END IF
+
+// For months with 31 days: Jan, Mar, May, July, Aug, Oct, Dec
+IF (mob == 1 OR mob == 3 OR mob == 5 OR mob == 7 OR mob == 8 OR mob == 10 OR mob == 12) OR (cm == 1 OR cm == 3 OR cm == 5 OR cm == 7 OR cm == 8 OR cm == 10 OR cm == 12)  THEN
+    
+    IF (dob > 31 OR cd > 31) THEN
+        PRINT "Invalid Date"
+        END
+    END IF
+
+// For months with 30 days: Apr, Jun, Sep, Nov
+
+ELSEIF (mob == 4 OR mob == 6 OR mob == 9 OR mob == 11) OR (cm == 4 OR cm == 6 OR cm == 9 OR cm == 11) THEN
+    
+    IF (dob > 30 OR cd > 30) THEN
+        PRINT "Invalid Date"
+        END
+    END IF
+
+ELSE
+    PRINT "Invalid Date"
+    END
+END IF
+
+// Calculate age based on month and year
+
+IF (cm > mob) THEN
+    age = cy - yob
+    months = cm - mob
+    days = cd - dob
+    
+    
+    IF (days < 0) THEN
+        days = no_of_days_in_month(cm) - (dob - cd)
+    END IF
+
+ELSE IF (cm < mob) THEN
+    age = (cy - yob) - 1
+    months = 12 - (mob - cm)
+    days = cd - dob
+    
+    IF (days < 0) THEN
+        days = no_of_days_in_month(cm) - (dob - cd)
+    END IF
+
+PRINT "Your age is: age " years," months " months, and " days " days"
+END IF
+
+// If current month equals birth month, check the days
+IF (cm == mob)
+    IF cd == dob
+        age = cy - yob
+        months = 0
+        days = 0
+    END IF
+
+    ELSE IF (cd < dob) THEN
+            age = (cy - yob)-1
+            months = 11
+             = no_of_days_in_month(cm) - (dob - cd)
+        END IF
+
+            ELSE 
+                age = (cy - yob) -1
+                months = 1
+                days = cd - dob 
+            END ELSE
+
+PRINT "Your age is: age " years," months " months, and " days " days"
+END IF
+
+
+PRINT "Your age is: age " years," months " months, and " days " days"
+
+END

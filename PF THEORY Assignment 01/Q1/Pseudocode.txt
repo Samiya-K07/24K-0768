@@ -1,0 +1,13 @@
+START
+
+INPUT speed_in_km/s (float)
+SET final_speed = speed*0.6124*3600
+
+    IF speed > 0 THEN
+        PRINT ("Speed in miles/hour is : " final_speed)
+
+        ELSE 
+            PRINT ("Enter valid speed!! (positive value of speed)")
+        END ELSE
+    END IF
+END

@@ -1,0 +1,21 @@
+START
+INPUT num (string)
+
+i = 0
+n = number of characters in num
+
+WHILE i < n {
+    IF num(i) == 9
+        Delete num(i+1)
+        n = n - 1
+        result == 9
+        PRINT result
+
+    ELSE IF n!=9
+        result = num(i)
+        PRINT result
+    END IF
+i = i + 1
+} END WHILE
+
+END

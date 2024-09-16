@@ -1,0 +1,13 @@
+INPUT:
+Speed in km/s
+
+PROCEESS:
+1. Enter speed in km/s
+2. If speed >0 then 
+3. Calculate speed in miles/hr: speed*0.6124*3600
+4. Print "speed in miles/hr is: " speed in miles/hr
+5. Else print "Invalid speed input (speed >0)"
+6. End
+
+OUTPUT:
+Speed in miles/hr

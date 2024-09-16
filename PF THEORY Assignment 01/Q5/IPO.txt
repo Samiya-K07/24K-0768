@@ -1,0 +1,26 @@
+INPUT:
+crop
+rain (yes or no)
+soil_moisture (in decimals from 0.00 to 1.00)
+
+PROCEESS:
+1. IF soil_moisture >= 0.4
+2. PRINT "No irrigation applied"
+3. ELSE IF crop == "wheat"
+4. THEN IF soil_moisture < 0.3 AND rain == "no"
+5. PRINT "Irrigation applied"
+6. ELSE PRINT "No irrigation applied"
+7. ELSE IF crop == "corn"
+8. THEN IF soil_moisture < 0.4
+9. PRINT "Irrigation applied"
+10. ELSE PRINT "No irrigation applied"
+11. ELSE IF crop == "rice"
+12. THEN IF soil_moisture < 0.25 AND rain == "no"
+13. PRINT "Irrigation applied"
+14. ELSE PRINT "No irrigation applied"
+15. ELSE IF no condition true THEN
+16. PRINT "Invalid crop type"
+17. END
+
+OUTPUT:
+Irrigation is applied or not

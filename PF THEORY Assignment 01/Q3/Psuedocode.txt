@@ -1,0 +1,23 @@
+START
+
+INPUT age, gender
+
+IF age < 16 THEN
+    PRINT "Not legal to marry in Punjab or Sindh"
+
+ELSE 
+    
+    IF age >=16 && age <18 
+       
+        IF gender == "M"
+            PRINT "Legal to marry in Punjab but not legal to marry in Sindh"
+        
+        ELSE IF gender == "F"
+            PRINT "Legal to marry in Punjab but not legal to marry in Sindh"
+        ELSE
+            PRINT "Invalid Gender"
+    
+    ELSE 
+        PRINT "Legal to marry in Punjab and Sindh"
+END
+             

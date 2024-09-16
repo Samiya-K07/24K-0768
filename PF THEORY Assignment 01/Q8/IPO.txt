@@ -1,0 +1,19 @@
+INPUT: 
+num
+
+PROCEESS: 
+1. b = num
+2. sum = 0
+3. R = 0
+4. UNTIL b != 0) loop through:
+5. R = num % 10
+6. b = num / 10
+7. sum = R + sum
+8. num = b
+9. When b == 0
+10. END LOOP
+11. PRINT "sum is: " sum
+12. END
+
+OUTPUT:
+The sum of individual digits of a number
