@@ -50,8 +50,8 @@ for (int i = 0; i < size; i++)
     }  
 }
 
-printf("Minimum Number: %d\n", min); //Displayijng the maximum number
-printf("Maximum Number: %d\n", max); //Displaying the minimum number
+printf("Minimum Number: %d\n", min); //Displayijng the minimum number
+printf("Maximum Number: %d\n", max); //Displaying the max number
 
     return 0; 
 }
