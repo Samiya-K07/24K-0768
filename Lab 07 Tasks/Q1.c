@@ -22,7 +22,7 @@ for (int i = 0; i < size; i++)
     sum = sum + arr[i]; //Another for loop to calculate the sum of all elements in the array
 }
 
-printf("Sum: %d\n", &sum); //Displaying the sum
+printf("Sum: %d\n", sum); //Displaying the sum
 
 
     return 0;
