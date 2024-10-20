@@ -27,7 +27,7 @@ for (int i = 0; i < size; i++) //For loop to ask the user for input until the la
   
 int count[9999] = {0}; //Declaring another array to find duplicate values in the array and setting all the values in the count array to 0 
 
-for(int i = 0; i < 5; i++) //For loop to increment the value of the count index (corresponding to the value of arr[i]) from 0 so that we can determine that what value of arr[i] is repeating since the incremented value for that count index will be greater than 1 
+for(int i = 0; i < size; i++) //For loop to increment the value of the count index (corresponding to the value of arr[i]) from 0 so that we can determine that what value of arr[i] is repeating since the incremented value for that count index will be greater than 1 
     {
         count[arr[i]]++;
     }
