@@ -4,7 +4,7 @@
 
 int main () {
 
-int size; //Declaring and initializing variables
+int size; //Declaring variable
 
 printf("Enter size of array: "); //Prompting user for input (size of array so that we can declare array using that value)
 scanf("%d", &size);
