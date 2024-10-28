@@ -4,7 +4,7 @@
 
 int main () {
 
-int min, column_index, current_row, max, i = 0, count = 0; //declaration and initialization
+int min, column_index, max, count = 0; //declaration and initialization
 
 // 0 1 2
 
