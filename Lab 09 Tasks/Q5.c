@@ -30,4 +30,5 @@ void reversed_string(char* string)
     reverse[j] = '\0'; 
 
     strcpy(string, reverse); //copying the reversed string in the original string
+    return;
 }
