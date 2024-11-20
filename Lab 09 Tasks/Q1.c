@@ -13,6 +13,7 @@ int main () {
 int n; 
 printf("Enter the number of words: "); //prompt the user for input (the number of rows)
 scanf("%d", &n); 
+getchar(); //removing the leftover character
 
 char array[n][20]; //declaring and initializing the array
 
@@ -38,7 +39,7 @@ void palindrome(char array[][20], int n)
         int length = strlen(array[i]);
         int count = 0; 
 
-        for (int j = 0, k = length-1; array[i][j] != '\0'; j++, k--)
+        for (int j = 0, k = length - 1; j < k; j++, k--)
         {
             if (array[i][j] != array[i][k]) //if the condition fails to be true even one time then it is not palindrome
             {
