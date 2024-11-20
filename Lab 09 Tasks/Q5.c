@@ -4,7 +4,7 @@ in the main program to display the reversed string entered by the user*/
 #include<stdio.h>
 #include<string.h>
 
-void reversed_string(char* string); 
+void reversed_string(char *string); 
 
 int main () {
 
@@ -16,13 +16,13 @@ printf("Reversed string: %s\n", string); //displaying the reversed string in the
     return 0; 
 }
 
-void reversed_string(char* string)
+void reversed_string(char *string)
 {
     int length = strlen(string); 
-    char reverse[100]; 
+    static char reverse[100]; 
 
     int j; 
-    for (int i = length - 1, j = 0; string[i] != '\0'; i--, j++)
+    for (int i = length - 1, j = 0; i >= 0; i--, j++)
     {
         reverse[j] = string[i]; //storing the reverse in a temporary array called reverse
     }
