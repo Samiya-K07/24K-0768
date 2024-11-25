@@ -79,7 +79,7 @@ int main() {
     int Choice;
     int Count = 0;
     
-    // Sample Packages
+    //Sample Packages
     strcpy(Packages[0].Name, "Beach Paradise");
     strcpy(Packages[0].Destination, "Maldives");
     Packages[0].Duration = 7;
