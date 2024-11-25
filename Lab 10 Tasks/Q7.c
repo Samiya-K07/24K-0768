@@ -14,7 +14,7 @@ void conversion(float m)
     printf("This function has been called %d times!!\n", count);
 }
 
-int main () {
+int main() {
     
     float m;
     char choice;
