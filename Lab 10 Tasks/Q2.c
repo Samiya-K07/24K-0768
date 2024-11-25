@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
-struct point{
+struct point
+{
     float x;
     float y;
 };
@@ -34,7 +35,7 @@ int rectangle(struct point p, struct point sl, struct point sr, struct point wl,
     return 0;
 }
 
-int main () {
+int main() {
     
     struct point a = {4,4};
     struct point b = {3,3};
