@@ -1,68 +1,168 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main () {
-    
-    char *transaction[] = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    
-    int group[6] = {0};
-    int n = 6;
+void inputEmployees(int **ratings, int numEmployees, int numPeriods);
+void displayPerformance(int **ratings, int numEmployees, int numPeriods);
+int findEmployeeOfTheYear(int **ratings, int numEmployees, int numPeriods);
+int findHighestRatedPeriod(int **ratings, int numEmployees, int numPeriods);
+int findWorstPerformingEmployee(int **ratings, int numEmployees, int numPeriods);
 
-    printf("Grouped Anagrams:\n");
+int main() {
+   
+    int numEmployees, numPeriods;
+    printf("Enter the number of employees: ");
+    scanf("%d", &numEmployees);
+    printf("Enter the number of evaluation periods: ");
+    scanf("%d", &numPeriods);
 
-    for (int i = 0; i < n; i++) 
+    int **ratings = (int **)malloc(numEmployees * sizeof(int *));
+    if (ratings == NULL) 
     {
-        if (group[i] == 1) 
-        {
-            continue;
-        }
-        
-        printf("[");
-        group[i] = 1;
-
-        int count[26] = {0};
-        
-        for (int j = 0; transaction[i][j] != '\0'; j++) 
-        {
-            count[transaction[i][j] - 'a']++;
-        }
+        printf("Memory allocation failed!!\n");
+        return 1;
+    }
     
-        
-        printf("'%s'", transaction[i]);
-
-        for (int k = i + 1; k < n; k++) 
-        {    
-            if (group[k] == 0) 
-            { 
-                int temp[26] = {0};
-
-                for (int z = 0; transaction[k][z] != '\0'; z++) 
-                {
-                    temp[transaction[k][z] - 'a']++;
-                }
-
-                int anagram = 1; 
-                
-                for (int y = 0; y < 26; y++) 
-                {
-                    if (count[y] != temp[y]) 
-                    {    
-                        anagram = 0;
-                        
-                        break;
-                    }
-                }
-
-                if (anagram == 1) 
-                {  
-                    printf(", '%s'", transaction[k]); 
-                    group[k] = 1; 
-                }
-            }
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        ratings[i] = (int *)malloc(numPeriods * sizeof(int));
+       
+        if (ratings[i] == NULL) 
+        {
+            printf("Memory allocation failed for employee %d!!\n", i + 1);
+            return 1;
         }
-        
-        printf("]\n"); 
     }
 
+  
+    inputEmployees(ratings, numEmployees, numPeriods);
+
+    printf("\nEmployee Performance Ratings:\n");
+    displayPerformance(ratings, numEmployees, numPeriods);
+
+    int employeeOfTheYear = findEmployeeOfTheYear(ratings, numEmployees, numPeriods);
+    printf("\nEmployee of the Year: Employee %d\n", employeeOfTheYear + 1);
+
+    int highestRatedPeriod = findHighestRatedPeriod(ratings, numEmployees, numPeriods);
+    printf("Highest Rated Period: Period %d\n", highestRatedPeriod + 1);
+
+    int worstEmployee = findWorstPerformingEmployee(ratings, numEmployees, numPeriods);
+    printf("Worst Performing Employee: Employee %d\n", worstEmployee + 1);
+
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        free(ratings[i]);
+    }
+   
+    free(ratings);
     return 0;
 }
 
+void inputEmployees(int **ratings, int numEmployees, int numPeriods) 
+{
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        printf("\nEnter ratings for Employee %d:\n", i + 1);
+        for (int j = 0; j < numPeriods; j++) 
+        {
+            int rating;
+            do 
+            {
+                printf("Period %d (1-10): ", j + 1);
+                scanf("%d", &rating);
+                
+                if (rating < 1 || rating > 10) 
+                {
+                    printf("Invalid rating. Please enter a value between 1 and 10.\n");
+                }
+            } while (rating < 1 || rating > 10);
+            ratings[i][j] = rating;
+        }
+    }
+}
+
+void displayPerformance(int **ratings, int numEmployees, int numPeriods) 
+{
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        printf("Employee %d: ", i + 1);
+       
+        for (int j = 0; j < numPeriods; j++) 
+        {
+            printf("%d ", ratings[i][j]);
+        }
+        
+        printf("\n");
+    }
+}
+
+int findEmployeeOfTheYear(int **ratings, int numEmployees, int numPeriods) 
+{
+    int bestEmployee = 0;
+    double highestAverage = 0.0;
+
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        int total = 0;
+        for (int j = 0; j < numPeriods; j++) 
+        {
+            total += ratings[i][j];
+        }
+       
+        double average = (double)total / numPeriods;
+        
+        if (average > highestAverage)
+        {
+            highestAverage = average;
+            bestEmployee = i;
+        }
+    }
+    return bestEmployee;
+}
+
+int findHighestRatedPeriod(int **ratings, int numEmployees, int numPeriods) 
+{
+    int bestPeriod = 0;
+    double highestAverage = 0.0;
+
+    for (int j = 0; j < numPeriods; j++) 
+    {
+        int total = 0;
+        
+        for (int i = 0; i < numEmployees; i++) 
+        {
+            total += ratings[i][j];
+        }
+        double average = (double)total / numEmployees;
+        
+        if (average > highestAverage) 
+        {
+            highestAverage = average;
+            bestPeriod = j;
+        }
+    }
+    return bestPeriod;
+}
+int findWorstPerformingEmployee(int **ratings, int numEmployees, int numPeriods) 
+{
+    int worstEmployee = 0;
+    double lowestAverage = 10.0; 
+
+    for (int i = 0; i < numEmployees; i++) 
+    {
+        int total = 0;
+        
+        for (int j = 0; j < numPeriods; j++) 
+        {
+            total += ratings[i][j];
+        }
+        double average = (double)total / numPeriods;
+        
+        if (average < lowestAverage) 
+        {
+            lowestAverage = average;
+            worstEmployee = i;
+        }
+    }
+    
+    return worstEmployee;
+}
