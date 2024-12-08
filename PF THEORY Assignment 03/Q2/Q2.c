@@ -1,122 +1,119 @@
 #include<stdio.h>
 #include<string.h>
 
-#define BALLS 12
-
-struct Player 
+typedef struct
 {
-    char playerName[50];
-    int ballScores[BALLS];
-    int totalScore;
-};
+    char name[20];
+    int ball_scores[12];
+    int total_score;
+} Players;
 
-void playGame(struct Player *player);
-int validateScore(int score);
-struct Player findWinner(struct Player player1, struct Player player2);
-void displayMatchScoreboard(struct Player player1, struct Player player2);
-
-int main() 
+void PlayGame(Players player[])
 {
-    struct Player player1 = { .totalScore = 0 };
-    struct Player player2 = { .totalScore = 0 };
-
-    printf("Enter Player 1 name: ");
-    fgets(player1.playerName, 50, stdin);
-    player1.playerName[strcspn(player1.playerName, "\n")] = 0; 
-
-    printf("Enter Player 2 name: ");
-    fgets(player2.playerName, 50, stdin);
-    player2.playerName[strcspn(player2.playerName, "\n")] = 0;
-
-    printf("\n-- Player 1 Turn --\n");
-    playGame(&player1);
-
-    printf("\n-- Player 2 Turn --\n");
-    playGame(&player2);
-
-    printf("\n-- Match Summary --\n");
-    displayMatchScoreboard(player1, player2);
-
-    struct Player winner = findWinner(player1, player2);
-    
-    if (winner.totalScore != -1) 
+    for (int i = 0; i < 2; i++)
     {
-        printf("\nWinner: %s with a total score of %d!\n", winner.playerName, winner.totalScore);
-    } 
-    
-    else 
-    {
-        printf("\nIt's a tie!\n");
+        printf("PLAYER %d\n", i+1);
+        printf("Enter your scores, you have 12 balls to play for!!\n");
+            
+            for (int j = 0; j < 12; j++)
+            {
+                printf("Ball# %d\n", j+1);
+                scanf("%d", &player[i].ball_scores[j]);
+            }
+            
+            printf("\n");
     }
-
-    return 0;
 }
 
-void playGame(struct Player *player) 
+void ValidateScore(Players player[])
 {
-    printf("Player: %s\n", player->playerName);
-    
-    for (int i = 0; i < BALLS; i++) 
+    for (int i = 0; i < 2; i++)
     {
-        int score;
-        printf("Enter score for ball %d: ", i + 1);
-        scanf("%d", &score);
-
-        if (validateScore(score)) 
+        for (int j = 0; j < 12; j++)
         {
-            player->ballScores[i] = score;
-            player->totalScore += score;
-        } 
-        
-        else 
-        {
-            player->ballScores[i] = 0; 
-            printf("Invalid score! Ball marked but no runs scored.\n");
+            if ((player[i].ball_scores[j]>6) || player[i].ball_scores[j]<0)
+            {
+                player[i].ball_scores[j]=0;
+            }
         }
     }
 }
 
-int validateScore(int score) 
+void FindWinner(Players player[])
 {
-    return score >= 0 && score <= 6;
+    int found;
+    
+    for (int i = 0; i < 2; i++)
+    {
+        int max=player[0].total_score;
+        
+        for (int j = 0; j < 12; j++)
+        {
+            player[i].total_score+= player[i].ball_scores[j];
+        }
+        
+        if(player[i].total_score > max)
+        {
+            player[i].total_score = max; 
+            found=i;
+        }
+    }
+    
+    printf("Player %d Wins!!\n", found+1);
 }
 
-struct Player findWinner(struct Player player1, struct Player player2) 
+void AvgScore(Players player[])
 {
-    if (player1.totalScore > player2.totalScore) 
-    {
-        return player1;
-    } 
     
-    else if (player2.totalScore > player1.totalScore) 
+    for (int i = 0; i < 2; i++)
     {
-        return player2;
-    } 
-    
-    else 
-    {
-        struct Player tie = { .totalScore = -1 }; 
-        return tie;
+        player[i].total_score=0;
+        float avg;
+        
+        for (int j = 0; j < 12; j++)
+        {
+            player[i].total_score+= player[i].ball_scores[j];
+        }
+       
+        printf("Total Score for Player %d: %d\n", i+1, player[i].total_score);
+        avg = (player[i].total_score)/12.0;
+        printf("Average Score for Player %d: %.2f\n",i+1, avg);
     }
 }
 
-void displayMatchScoreboard(struct Player player1, struct Player player2) 
+void DisplayMatchScoreboard(Players player[])
 {
-    printf("\nScoreboard for %s:\n", player1.playerName);
-    for (int i = 0; i < BALLS; i++)
+    printf("\nScore Board\n");
+    
+    for (int i = 0; i < 2; i++)
     {
-        printf("Ball %d: %d\n", i + 1, player1.ballScores[i]);
+        printf("PLAYER %d: %s\n", i+1, player[i].name);
+        printf("Scores: ");
+        
+        for (int j = 0; j < 12; j++)
+        {
+            printf("%d ", player[i].ball_scores[j]);
+        }
+        printf("\n");
     }
     
-    printf("Total Score: %d\n", player1.totalScore);
-    printf("Average Score: %.2f\n", player1.totalScore / (float)BALLS);
+    AvgScore(player);
+    
+}
 
-    printf("\nScoreboard for %s:\n", player2.playerName);
-    for (int i = 0; i < BALLS; i++) 
+int main() {
+    
+    Players player[2];
+    printf("WELCOME TO CRICKET SHOWDOWN!\n");
+    printf("Enter the names of the player: \n");
+   
+    for (int i = 0; i < 2; i++)
     {
-        printf("Ball %d: %d\n", i + 1, player2.ballScores[i]);
+        scanf(" %[^\n]", player[i].name);
     }
     
-    printf("Total Score: %d\n", player2.totalScore);
-    printf("Average Score: %.2f\n", player2.totalScore / (float)BALLS);
+    PlayGame(player);
+    ValidateScore(player);
+    FindWinner(player);
+    DisplayMatchScoreboard(player);
 }
