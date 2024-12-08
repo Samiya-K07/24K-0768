@@ -1,61 +1,61 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<string.h>
 
-int main () {
+struct Employee
+{
+    int employeeCode;
+    char employeeName[20];
+    int dateOfJoining;
+    int monthOfJoining;
+    int yearOfJoining;
+};
 
-int min, second_min, temp, values, sum = 0; 
-
-printf("Enter the number of values you want in your array: "); 
-scanf("%d", &values);
-
-int arr[values]; 
-
-for (int i = 0; i < values; i++)
-{   
-    printf("Enter a value: ");
-    scanf("%d", &arr[i]); 
-
-    if (arr[i] > 9999)
-    {
-        printf("Invalid value!! Enter a value <9999\n");
-        return 0; 
-    }
+void input(struct Employee *emp)
+{
+    printf("Enter Employee's Name: \n");
+    scanf(" %[^\n]", emp->employeeName);
+    printf("Enter Employee's Code: \n");
+    scanf("%d", &emp->employeeCode);
+    printf("Enter Employee's Date of Joining in the DDMMYYY format: \n");
+    scanf("%d %d %d", &emp->dateOfJoining, &emp->monthOfJoining, &emp->yearOfJoining);
 }
 
-for (int i = 0; i < values; i++)
-{   
-    if (arr[i] < 0)
+void checkTenure(struct Employee emp[])
+{
+    int currDate, currMonth, currYear;
+    printf("Enter today's date in DDMMYYYY format : \n");
+    scanf("%d %d %d", &currDate, &currMonth, &currYear);
+    
+    int count = 0;
+    printf("Employees who have been working for more than 3 years with us: \n");
+    
+    for (int i = 0; i < 4; i++)
     {
-        temp = arr[i] * -1;
-        sum = sum + temp;  
+        int years = currYear - emp[i].yearOfJoining;
+        if (currMonth < emp[i].monthOfJoining || (currMonth == emp[i].monthOfJoining && currDate < emp[i].dateOfJoining))
+        {
+            years--;
+        }
+        
+        if (years > 3)
+        {
+            printf("Employee Name: %s\n", emp[i].employeeName);
+            printf("Employee Code: %d\n", emp[i].employeeCode);
+            printf("Date of Joining: %d/%d/%d\n", emp[i].dateOfJoining, emp[i].monthOfJoining, emp[i].yearOfJoining);
+        }  
     }
     
-    else 
-    {
-        sum = sum + arr[i]; 
-    }   
+    printf("Total Number of employees with tenure of more than 3 years: %d\n", count);
 }
-
-min = sum; 
-
-for (int i = 0; i < values; i++)
-{
-    if (min > arr[i])
-    {   
-        second_min = min;
-        min = arr[i]; 
-       //we need to handle the case where the number (which in this case is 4) is lower than the second lowest number but higher than the lowest number
+    
+int main() {
+    
+    struct Employee emp[4];
+    printf("Enter employees' details: \n");
+    
+    for (int i = 0; i < 4; i++)
+    {
+        input(&emp[i]);
     }
-
-    else 
-    {
-        if (arr[i] > min && arr[i] < second_min)
-        {
-            second_min = arr[i]; 
-        }
-    }   
-}
-
-printf("The second lowest number is: %d\n", second_min); 
-
-    return 0; 
+    checkTenure(emp);
 }
