@@ -18,7 +18,7 @@ int ValidateEmail(char* email)
         if (email[i] =='@')
         {
             count++;
-            position=i;
+            position = i;
         }
    
         if (count == 1 && email[i] == '.' && i > position)
