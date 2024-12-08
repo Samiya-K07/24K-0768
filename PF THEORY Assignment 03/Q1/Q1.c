@@ -1,47 +1,53 @@
 #include<stdio.h>
 #include<string.h>
 
-struct Employee
+typedef struct 
 {
-    int employeeCode;
-    char employeeName[20];
-    int dateOfJoining;
-    int monthOfJoining;
-    int yearOfJoining;
-};
+    int employee_code;
+    char employee_name[20];
+    int date_of_joining;
+    int month_of_joining;
+    int year_of_joining;
+} Employee;
 
-void input(struct Employee *emp)
+
+void Input(Employee *emp)
 {
-    printf("Enter Employee's Name: \n");
-    scanf(" %[^\n]", emp->employeeName);
-    printf("Enter Employee's Code: \n");
-    scanf("%d", &emp->employeeCode);
-    printf("Enter Employee's Date of Joining in the DDMMYYY format: \n");
-    scanf("%d %d %d", &emp->dateOfJoining, &emp->monthOfJoining, &emp->yearOfJoining);
+    printf("Enter Employee name: \n");
+    scanf(" %[^\n]", emp->employee_name);
+    
+    printf("Enter Employee code: \n");
+    scanf("%d", &emp-> employee_code);
+    
+    printf("Enter Employee date of joining in the DDMMYYY format: \n");
+    scanf("%d %d %d", &emp->date_of_joining, &emp->month_of_joining, &emp->year_of_joining);
 }
 
-void checkTenure(struct Employee emp[])
+void CheckTenure(Employee emp[])
 {
-    int currDate, currMonth, currYear;
+    int current_date, current_month, current_year;
+   
     printf("Enter today's date in DDMMYYYY format : \n");
-    scanf("%d %d %d", &currDate, &currMonth, &currYear);
+    scanf("%d %d %d", &current_date, &current_month, &current_year);
     
     int count = 0;
-    printf("Employees who have been working for more than 3 years with us: \n");
+    
+    printf("Employees who have been working for more than 3 years with us:\n");
     
     for (int i = 0; i < 4; i++)
     {
-        int years = currYear - emp[i].yearOfJoining;
-        if (currMonth < emp[i].monthOfJoining || (currMonth == emp[i].monthOfJoining && currDate < emp[i].dateOfJoining))
+        int years = current_year-emp[i].year_of_joining;
+        
+        if (current_month<emp[i].month_of_joining || (current_month == emp[i].month_of_joining && current_date < emp[i].date_of_joining))
         {
             years--;
         }
         
         if (years > 3)
         {
-            printf("Employee Name: %s\n", emp[i].employeeName);
-            printf("Employee Code: %d\n", emp[i].employeeCode);
-            printf("Date of Joining: %d/%d/%d\n", emp[i].dateOfJoining, emp[i].monthOfJoining, emp[i].yearOfJoining);
+            printf("Employee name: %s\n", emp[i].employee_name);
+            printf("Employee code: %d\n", emp[i].employee_code);
+            printf("Date of joining: %d/%d/%d\n", emp[i].date_of_joining, emp[i].month_of_joining, emp[i].year_of_joining);
         }  
     }
     
@@ -50,12 +56,14 @@ void checkTenure(struct Employee emp[])
     
 int main() {
     
-    struct Employee emp[4];
-    printf("Enter employees' details: \n");
+    Employee emp[4];
+    
+    printf("Enter employees details: \n");
     
     for (int i = 0; i < 4; i++)
     {
-        input(&emp[i]);
+        Input(&emp[i]);
     }
-    checkTenure(emp);
+    
+    CheckTenure(emp);
 }
