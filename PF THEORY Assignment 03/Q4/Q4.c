@@ -142,6 +142,7 @@ int findHighestRatedPeriod(int **ratings, int numEmployees, int numPeriods)
     }
     return bestPeriod;
 }
+
 int findWorstPerformingEmployee(int **ratings, int numEmployees, int numPeriods) 
 {
     int worstEmployee = 0;
