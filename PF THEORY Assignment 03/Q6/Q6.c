@@ -2,112 +2,116 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Weather 
+typedef struct  
 {
     float temperature;
     float rainfall;
-    float windSpeed;
-};
+    float wind_speed;
+} Weather;
 
-struct Crop 
+typedef struct  
 {
-    char cropType[50];
-    char growthStage[50];
-    float expectedYield;
+    char crop_type[50];
+    char growth_stage[50];
+    float expected_yield;
     Weather *weather;
-};
+} Crop;
 
-struct Equipment
+typedef struct 
 {
-    char equipmentType[50];
-    char operationalStatus[50];
-    float fuelLevel;
-    char activitySchedule[100];
-};
+    char equipment_type[50];
+    char operational_status[50];
+    float fuel_level;
+    char activity_schedule[100];
+} Equipment;
 
-struct 
+typedef struct 
 {
-    float soilNutrients;
-    float pHLevel;
-    int pestActivity; 
+    float soil_nutrients;
+    float pH_level;
+    int pest_activity; 
 } Sensor;
  
-struct Field 
+typedef struct 
 {
-    char gpsCoordinates[100];
-    float soilHealth;
-    float moistureLevel;
+    char coordinates[100];
+    float soil_health;
+    float moisture_level;
     Crop *crops;         
-    int numCrops;
+    int num_of_crops;
     Equipment *equipment; 
-    int numEquipment;
+    int num_of_equipment;
     Sensor *sensors;     
-    int numSensors;
-};
+    int num_of_sensors;
+} Field ;
 
-struct RegionalHub
+typedef struct 
 {
-    char regionName[50];
+    char region_name[50];
     Field *fields;       
-    int numFields;
-    float aggregateYield;
-    char emergencyPlan[200];
-} ;
+    int num_of_fields;
+    float aggregate_yield;
+    char emergency_plan[200];
+} RegionalHub;
 
-void addField(RegionalHub *hub);
-void addCrop(Field *field);
-void addEquipment(Field *field);
-void addSensor(Field *field);
-void displayHubDetails(const RegionalHub *hub);
+void AddField(RegionalHub *hub);
+void AddCrop(Field *field);
+void AddEquipment(Field *field);
+void AddSensor(Field *field);
+void DisplayHubDetails(const RegionalHub *hub);
 
 int main() {
     
-   int numHubs;
+   int num_of_hubs;
    printf("Enter the number of regional hubs: ");
-   scanf("%d", &numHubs);
+   scanf("%d", &num_of_hubs);
 
-   RegionalHub *hubs = (RegionalHub *)malloc(numHubs * sizeof(RegionalHub));
+   RegionalHub *hubs = (RegionalHub *)malloc(num_of_hubs * sizeof(RegionalHub));
+   
    if (!hubs) 
-   {
-        printf("Memory allocation failed for hubs1!\n");
+    {
+        printf("Memory allocation failed!!\n");
         return 1;
     }
 
-   for (int i = 0; i < numHubs; i++) 
+   for (int i = 0; i < num_of_hubs; i++) 
    {
-      printf("\nEnter details for Regional Hub %d:\n", i + 1);
+      printf("\nEnter details for the Regional Hub %d:\n", i + 1);
       printf("Region Name: ");
-      scanf(" %[^\n]", hubs[i].regionName);
+      scanf(" %[^\n]", hubs[i].region_name);
+      
       printf("Number of fields in this hub: ");
-      scanf("%d", &hubs[i].numFields);
+      scanf("%d", &hubs[i].num_of_fields);
 
-      hubs[i].fields = (Field *)malloc(hubs[i].numFields * sizeof(Field));
+      hubs[i].fields = (Field *)malloc(hubs[i].num_of_fields * sizeof(Field));
+      
       if (!hubs[i].fields) 
       {
-            printf("Memory allocation failed for fields in hub %s!!\n", hubs[i].regionName);
+            printf("Memory allocation failed for fields in hub %s!!\n", hubs[i].region_name);
             return 1;
       }
 
-      for (int j = 0; j < hubs[i].numFields; j++) 
-      {
-            addField(&hubs[i]);
+      for (int j = 0; j < hubs[i].num_of_fields; j++) 
+        {
+            AddField(&hubs[i]);
         }
     }
 
 
-    for (int i = 0; i < numHubs; i++) 
+    for (int i = 0; i < num_of_hubs; i++) 
     {
-        displayHubDetails(&hubs[i]);
+        DisplayHubDetails(&hubs[i]);
     }
 
-    for (int i = 0; i < numHubs; i++) 
+    for (int i = 0; i < num_of_hubs; i++) 
     {
-        for (int j = 0; j < hubs[i].numFields; j++) 
+        for (int j = 0; j < hubs[i].num_of_fields; j++) 
         {
             free(hubs[i].fields[j].crops);
             free(hubs[i].fields[j].equipment);
             free(hubs[i].fields[j].sensors);
         }
+        
         free(hubs[i].fields);
     }
     
@@ -116,122 +120,144 @@ int main() {
    return 0;
 }
 
-void addField(RegionalHub *hub) 
+void AddField(RegionalHub *hub) 
 {
-    static int fieldIndex = 0;
-    Field *field = &hub->fields[fieldIndex++];
-    printf("\nEnter GPS coordinates for Field %d: ", fieldIndex);
-    scanf(" %[^\n]", field->gpsCoordinates);
+    static int field_index = 0;
+    Field *field = &hub->fields[field_index++];
+    
+    printf("\nEnter GPS coordinates for Field %d: ", field_index);
+    scanf(" %[^\n]", field->coordinates);
+    
     printf("Soil Health (out of 100): ");
-    scanf("%f", &field->soilHealth);
+    scanf("%f", &field->soil_health);
+    
     printf("Moisture Level (percentage): ");
-    scanf("%f", &field->moistureLevel);
+    scanf("%f", &field->moisture_level);
 
     printf("Enter number of crops in this field: ");
-    scanf("%d", &field->numCrops);
-    field->crops = (Crop *)malloc(field->numCrops * sizeof(Crop));
+    scanf("%d", &field->num_of_crops);
+    field->crops = (Crop *)malloc(field->num_of_crops * sizeof(Crop));
     
-    for (int i = 0; i < field->numCrops; i++) 
+    for (int i = 0; i < field->num_of_crops; i++) 
     {
-        addCrop(field);
+        AddCrop(field);
     }
 
     printf("Enter number of equipment in this field: ");
-    scanf("%d", &field->numEquipment);
-    field->equipment = (Equipment *)malloc(field->numEquipment * sizeof(Equipment));
+    scanf("%d", &field->num_of_equipment);
+    field->equipment = (Equipment *)malloc(field->num_of_equipment * sizeof(Equipment));
     
-    for (int i = 0; i < field->numEquipment; i++) 
+    for (int i = 0; i < field->num_of_equipment; i++) 
     {
-        addEquipment(field);
+        AddEquipment(field);
     }
 
     printf("Enter number of sensors in this field: ");
-    scanf("%d", &field->numSensors);
-    field->sensors = (Sensor *)malloc(field->numSensors * sizeof(Sensor));
+    scanf("%d", &field->num_of_sensors);
+    field->sensors = (Sensor *)malloc(field->num_of_sensors * sizeof(Sensor));
     
-    for (int i = 0; i < field->numSensors; i++) 
+    for (int i = 0; i < field->num_of_sensors; i++) 
     {
-        addSensor(field);
+        AddSensor(field);
     }
 }
 
-void addCrop(Field *field) 
+void AddCrop(Field *field) 
 {
-    static int cropIndex = 0;
-    Crop *crop = &field->crops[cropIndex++];
+    static int crop_index = 0;
+    Crop *crop = &field->crops[crop_index++];
+    
     printf("\nEnter Crop Type: ");
-    scanf(" %[^\n]", crop->cropType);
+    scanf(" %[^\n]", crop->crop_type);
+    
     printf("Growth Stage: ");
-    scanf(" %[^\n]", crop->growthStage);
+    scanf(" %[^\n]", crop->growth_stage);
+    
     printf("Expected Yield (kg): ");
-    scanf("%f", &crop->expectedYield);
+    scanf("%f", &crop->expected_yield);
 
     crop->weather = (Weather *)malloc(sizeof(Weather));
+    
     printf("Weather Forecast:\n");
     printf("Temperature (°C): ");
     scanf("%f", &crop->weather->temperature);
+    
     printf("Rainfall (mm): ");
     scanf("%f", &crop->weather->rainfall);
+   
     printf("Wind Speed (km/h): ");
-    scanf("%f", &crop->weather->windSpeed);
+    scanf("%f", &crop->weather->wind_speed);
 }
 
-void addEquipment(Field *field) 
+void AddEquipment(Field *field) 
 {
-    static int equipmentIndex = 0;
-    Equipment *equipment = &field->equipment[equipmentIndex++];
-    printf("\nEnter Equipment Type: ");
-    scanf(" %[^\n]", equipment->equipmentType);
-    printf("Operational Status: ");
-    scanf(" %[^\n]", equipment->operationalStatus);
-    printf("Fuel Level (percentage): ");
-    scanf("%f", &equipment->fuelLevel);
-    printf("Activity Schedule: ");
-    scanf(" %[^\n]", equipment->activitySchedule);
-}
-
-void addSensor(Field *field) 
-{
-    static int sensorIndex = 0;
-    Sensor *sensor = &field->sensors[sensorIndex++];
-    printf("\nSoil Nutrients Level: ");
-    scanf("%f", &sensor->soilNutrients);
-    printf("pH Level: ");
-    scanf("%f", &sensor->pHLevel);
-    printf("Pest Activity (0=No, 1=Yes): ");
-    scanf("%d", &sensor->pestActivity);
-}
-
-void displayHubDetails(const RegionalHub *hub) 
-{
-    printf("\nRegional Hub: %s\n", hub->regionName);
-    printf("Number of Fields: %d\n", hub->numFields);
+    static int equipment_index = 0;
+    Equipment *equipment = &field->equipment[equipment_index++];
     
-    for (int i = 0; i < hub->numFields; i++) 
+    printf("\nEnter Equipment Type: ");
+    scanf(" %[^\n]", equipment->equipment_type);
+    
+    
+    printf("Operational Status: ");
+    scanf(" %[^\n]", equipment->operational_status);
+    
+    printf("Fuel Level (percentage): ");
+    scanf("%f", &equipment->fuel_level);
+    
+    printf("Activity Schedule: ");
+    scanf(" %[^\n]", equipment->activity_schedule);
+}
+
+void AddSensor(Field *field) 
+{
+    static int sensor_index = 0;
+    Sensor *sensor = &field->sensors[sensor_index++];
+    
+    printf("\nSoil Nutrients Level: ");
+    scanf("%f", &sensor->soil_nutrients);
+    
+    printf("pH Level: ");
+    scanf("%f", &sensor->pH_level);
+    
+    printf("Pest Activity (0=No, 1=Yes): ");
+    scanf("%d", &sensor->pest_activity);
+}
+
+void DisplayHubDetails(const RegionalHub *hub) 
+{
+    printf("\nRegional Hub: %s\n", hub->region_name);
+    printf("Number of Fields: %d\n", hub->num_of_fields);
+    
+    for (int i = 0; i < hub->num_of_fields; i++) 
     {
         Field *field = &hub->fields[i];
+        
         printf("\nField %d:\n", i + 1);
-        printf("GPS Coordinates: %s\n", field->gpsCoordinates);
-        printf("Soil Health: %.2f\n", field->soilHealth);
-        printf("Moisture Level: %.2f%%\n", field->moistureLevel);
+        
+        printf("GPS Coordinates: %s\n", field->coordinates);
+        
+        printf("Soil Health: %.2f\n", field->soil_health);
+        
+        printf("Moisture Level: %.2f%%\n", field->moisture_level);
 
-        for (int j = 0; j < field->numCrops; j++) 
+        for (int j = 0; j < field->num_of_crops; j++) 
         {
             Crop *crop = &field->crops[j];
-            printf("Crop %d: Type=%s, Growth Stage=%s, Expected Yield=%.2fkg\n", j + 1, crop->cropType, crop->growthStage, crop->expectedYield);
-            printf("Weather: Temperature=%.2f°C, Rainfall=%.2fmm, Wind Speed=%.2fkm/h\n", crop->weather->temperature, crop->weather->rainfall, crop->weather->windSpeed);
+            
+            printf("Crop %d:\nType=%s\nGrowth Stage=%s\nExpected Yield=%.2fkg\n\n", j + 1, crop->crop_type, crop->growth_stage, crop->expected_yield);
+            printf("Weather:\nTemperature=%.2f°C\nRainfall=%.2fmm\nWind Speed=%.2fkm/h\n\n", crop->weather->temperature, crop->weather->rainfall, crop->weather->wind_speed);
         }
 
-        for (int j = 0; j < field->numEquipment; j++) 
+        for (int j = 0; j < field->num_of_equipment; j++) 
         {
             Equipment *equipment = &field->equipment[j];
-            printf("Equipment %d: Type=%s, Status=%s, Fuel Level=%.2f%%, Schedule=%s\n", j + 1, equipment->equipmentType, equipment->operationalStatus, equipment->fuelLevel, equipment->activitySchedule);
+            printf("Equipment %d:\nType=%s\nStatus=%s\nFuel Level=%.2f%%\nSchedule=%s\n\n", j + 1, equipment->equipment_type, equipment->operational_status, equipment->fuel_level, equipment->activity_schedule);
         }
 
-        for (int j = 0; j < field->numSensors; j++) 
+        for (int j = 0; j < field->num_of_sensors; j++) 
         {
             Sensor *sensor = &field->sensors[j];
-            printf("Sensor %d: Nutrients=%.2f, pH=%.2f, Pest Activity=%s\n", j + 1, sensor->soilNutrients, sensor->pHLevel, sensor->pestActivity ? "Yes" : "No");
+            printf("Sensor %d:\nNutrients=%.2f\npH=%.2f\nPest Activity=%s\n\n", j + 1, sensor->soil_nutrients, sensor->pH_level, sensor->pest_activity);
         }
     }
 }
