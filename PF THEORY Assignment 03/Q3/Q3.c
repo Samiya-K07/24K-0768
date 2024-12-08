@@ -1,72 +1,61 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 
-int validateEmail(char *email);
 
-int main() {
-    char *email;
-    size_t size;
-
-    printf("Enter the maximum length of the email address: ");
-    scanf("%zu", &size);
-
-    email = (char *)malloc((size + 1) * sizeof(char));
+int ValidateEmail(char* email)
+{
+    int count = 0, period = 0, position = -1;
     
-	if (email == NULL) 
-	{
-        	printf("Memory allocation failed.\n");
-        	return 1;
-    	}
-
-    printf("Enter the email address: ");
-    scanf(" %s", email); 
-
-    if (validateEmail(email)) 
+    if (email == NULL || strlen(email) == 0)
     {
-        printf("Valid Email\n");
-    } else {
-        printf("Invalid Email\n");
+        printf("Enter an email address!!");
+        return 0;
     }
+    
+    for (int i=0; email[i]!='\0'; i++)
+    {
+        if (email[i] =='@')
+        {
+            count++;
+            position=i;
+        }
+   
+        if (count == 1 && email[i] == '.' && i > position)
+        {
+            period++;
+        }
+    }
+    
+    if (period==1 && count==1)
+    {
+        printf("Valid email!!");
+        return 1;
 
-    free(email);
-
-    return 0;
+    }
+    
+    else 
+    {
+        printf("Invalid email!!");
+        return 0;
+    }
 }
 
-int validateEmail(char *email) 
-{
-    if (email == NULL || strlen(email) == 0) 
+int main() {
+    
+    char *email = (char*)malloc(256*sizeof(char));
+    
+    if (email == NULL)
     {
-        return 0; 
-    }
-
-    int atCount = 0;
-    char *atPosition = NULL;
-    char *dotPosition = NULL;
-
-    for (char *ptr = email; *ptr != '\0'; ptr++) 
-    {
-        if (*ptr == '@') 
-	{
-            atCount++;
-            atPosition = ptr;
-        }
-        
-	if (atPosition && *ptr == '.') 
-	{
-            dotPosition = ptr;
-        }
-    }
-
-    if (atCount != 1) 
-    {
-        return 0; //must contain exactly one '@'
-    }
-    if (!dotPosition || dotPosition < atPosition) 
-    {
-        return 0; //must contain at least one '.' after '@'
+        printf("Memory allocation failed!!");
+        return 1;
     }
     
-	return 1;
+    printf("Enter your email address: \n");
+    scanf(" %[^\n]", email);
+
+    ValidateEmail(email);
+    free(email);
+    
+    return 0;
 }
