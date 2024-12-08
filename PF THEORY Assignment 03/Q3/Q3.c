@@ -1,46 +1,72 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void compressedword(char* word[], int num_of_words);
+int validateEmail(char *email);
 
-int main () {
-	
-    char* word[]= {"booooook", "coooool", "heeeey"};
-	int num_of_words = sizeof(word)/sizeof(word[0]);
-	
-	compressed(word,num_of_words);
-	
-    return 0;
-}	
+int main() {
+    char *email;
+    size_t size;
 
-void compressedword(char* word[], int num_of_words)
-{
-	char after_compressed[100];
-	int eliminated = 0;
-	
-	printf("Compressed Words:\n");
-	
-    for(int i = 0; i < num_of_words; i++)
+    printf("Enter the maximum length of the email address: ");
+    scanf("%zu", &size);
+
+    email = (char *)malloc((size + 1) * sizeof(char));
+    
+	if (email == NULL) 
+	{
+        	printf("Memory allocation failed.\n");
+        	return 1;
+    	}
+
+    printf("Enter the email address: ");
+    scanf(" %s", email); 
+
+    if (validateEmail(email)) 
     {
-		int a = 0;
-		int og_length = 0;
-		
-		for(int j = 0; word[i][j] != '\0'; j++)
-        {
-			og_length++;
-		    if(j == 0 || word[i][j] != word[i][j-1])
-            {
-				after_compressed[a] = word[i][j];
-				a++;
-			}
-		}
-		
-        after_compressed[a] = '\0';
-		
-		int new_length = og_length - a;
-		
-		printf("%s -> %s (Removed %d characters)\n", word[i], after_compressed, new_length);
-		eliminated = eliminated + new_length;
-	}	
-	
-	printf("Total number of characters removed: %d\n", eliminated);
-}	
+        printf("Valid Email\n");
+    } else {
+        printf("Invalid Email\n");
+    }
+
+    free(email);
+
+    return 0;
+}
+
+int validateEmail(char *email) 
+{
+    if (email == NULL || strlen(email) == 0) 
+    {
+        return 0; 
+    }
+
+    int atCount = 0;
+    char *atPosition = NULL;
+    char *dotPosition = NULL;
+
+    for (char *ptr = email; *ptr != '\0'; ptr++) 
+    {
+        if (*ptr == '@') 
+	{
+            atCount++;
+            atPosition = ptr;
+        }
+        
+	if (atPosition && *ptr == '.') 
+	{
+            dotPosition = ptr;
+        }
+    }
+
+    if (atCount != 1) 
+    {
+        return 0; //must contain exactly one '@'
+    }
+    if (!dotPosition || dotPosition < atPosition) 
+    {
+        return 0; //must contain at least one '.' after '@'
+    }
+    
+	return 1;
+}
