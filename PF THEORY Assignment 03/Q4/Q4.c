@@ -1,31 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void inputEmployees(int **ratings, int numEmployees, int numPeriods);
-void displayPerformance(int **ratings, int numEmployees, int numPeriods);
-int findEmployeeOfTheYear(int **ratings, int numEmployees, int numPeriods);
-int findHighestRatedPeriod(int **ratings, int numEmployees, int numPeriods);
-int findWorstPerformingEmployee(int **ratings, int numEmployees, int numPeriods);
+void InputEmployees(int **ratings, int num_of_employees, int num_of_periods);
+void DisplayPerformance(int **ratings, int num_of_employees, int num_of_periods);
+int FindEmployeeOfTheYear(int **ratings, int num_of_employees, int num_of_periods);
+int FindHighestRatedPeriod(int **ratings, int num_of_employees, int num_of_periods);
+int FindWorstPerformingEmployee(int **ratings, int num_of_employees, int num_of_periods);
 
 int main() {
-   
-    int numEmployees, numPeriods;
-    printf("Enter the number of employees: ");
-    scanf("%d", &numEmployees);
-    printf("Enter the number of evaluation periods: ");
-    scanf("%d", &numPeriods);
+    
+    int num_of_employees, num_of_periods;
 
-    int **ratings = (int **)malloc(numEmployees * sizeof(int *));
+    printf("Enter the number of employees: ");
+    scanf("%d", &num_of_employees);
+    
+    printf("Enter the number of evaluation periods: ");
+    scanf("%d", &num_of_periods);
+
+    int **ratings = (int **)malloc(num_of_employees * sizeof(int *));
+    
     if (ratings == NULL) 
     {
         printf("Memory allocation failed!!\n");
         return 1;
     }
     
-    for (int i = 0; i < numEmployees; i++) 
+    for (int i = 0; i < num_of_employees; i++) 
     {
-        ratings[i] = (int *)malloc(numPeriods * sizeof(int));
-       
+        ratings[i] = (int *)malloc(num_of_periods * sizeof(int));
+        
         if (ratings[i] == NULL) 
         {
             printf("Memory allocation failed for employee %d!!\n", i + 1);
@@ -33,36 +36,38 @@ int main() {
         }
     }
 
-  
-    inputEmployees(ratings, numEmployees, numPeriods);
+    InputEmployees(ratings, num_of_employees, num_of_periods);
 
     printf("\nEmployee Performance Ratings:\n");
-    displayPerformance(ratings, numEmployees, numPeriods);
+    DisplayPerformance(ratings, num_of_employees, num_of_periods);
 
-    int employeeOfTheYear = findEmployeeOfTheYear(ratings, numEmployees, numPeriods);
-    printf("\nEmployee of the Year: Employee %d\n", employeeOfTheYear + 1);
+    int employee_of_the_year = FindEmployeeOfTheYear(ratings, num_of_employees, num_of_periods);
+    printf("\nEmployee of the Year: Employee %d\n", employee_of_the_year + 1);
 
-    int highestRatedPeriod = findHighestRatedPeriod(ratings, numEmployees, numPeriods);
-    printf("Highest Rated Period: Period %d\n", highestRatedPeriod + 1);
+    int highest_rated_period = FindHighestRatedPeriod(ratings, num_of_employees, num_of_periods);
+    printf("Highest Rated Period: Period %d\n", highest_rated_period + 1);
 
-    int worstEmployee = findWorstPerformingEmployee(ratings, numEmployees, numPeriods);
-    printf("Worst Performing Employee: Employee %d\n", worstEmployee + 1);
+    
+    int worst_employee = FindWorstPerformingEmployee(ratings, num_of_employees, num_of_periods);
+    printf("Worst Performing Employee: Employee %d\n", worst_employee + 1);
 
-    for (int i = 0; i < numEmployees; i++) 
+
+    for (int i = 0; i < num_of_employees; i++) 
     {
         free(ratings[i]);
     }
-   
+    
     free(ratings);
+
     return 0;
 }
 
-void inputEmployees(int **ratings, int numEmployees, int numPeriods) 
+void InputEmployees(int **ratings, int num_of_employees, int num_of_periods) 
 {
-    for (int i = 0; i < numEmployees; i++) 
+    for (int i = 0; i < num_of_employees; i++) 
     {
         printf("\nEnter ratings for Employee %d:\n", i + 1);
-        for (int j = 0; j < numPeriods; j++) 
+        for (int j = 0; j < num_of_periods; j++) 
         {
             int rating;
             do 
@@ -72,21 +77,21 @@ void inputEmployees(int **ratings, int numEmployees, int numPeriods)
                 
                 if (rating < 1 || rating > 10) 
                 {
-                    printf("Invalid rating. Please enter a value between 1 and 10.\n");
+                    printf("Invalid rating!! Please enter a value between 1 and 10.\n");
                 }
             } while (rating < 1 || rating > 10);
+            
             ratings[i][j] = rating;
         }
     }
 }
 
-void displayPerformance(int **ratings, int numEmployees, int numPeriods) 
+void DisplayPerformance(int **ratings, int num_of_employees, int num_of_periods) 
 {
-    for (int i = 0; i < numEmployees; i++) 
+    for (int i = 0; i < num_of_employees; i++) 
     {
         printf("Employee %d: ", i + 1);
-       
-        for (int j = 0; j < numPeriods; j++) 
+        for (int j = 0; j < num_of_periods; j++) 
         {
             printf("%d ", ratings[i][j]);
         }
@@ -95,75 +100,75 @@ void displayPerformance(int **ratings, int numEmployees, int numPeriods)
     }
 }
 
-int findEmployeeOfTheYear(int **ratings, int numEmployees, int numPeriods) 
+int FindEmployeeOfTheYear(int **ratings, int num_of_employees, int num_of_periods) 
 {
-    int bestEmployee = 0;
-    double highestAverage = 0.0;
+    int best_employee = 0;
+    double highest_average = 0.0;
 
-    for (int i = 0; i < numEmployees; i++) 
+    for (int i = 0; i < num_of_employees; i++) 
     {
         int total = 0;
-        for (int j = 0; j < numPeriods; j++) 
+        for (int j = 0; j < num_of_periods; j++) 
         {
             total += ratings[i][j];
         }
        
-        double average = (double)total / numPeriods;
+        double average = (double)total / num_of_periods;
         
-        if (average > highestAverage)
+        if (average > highest_average)
         {
-            highestAverage = average;
-            bestEmployee = i;
+            highest_average = average;
+            best_employee = i;
         }
     }
-    return bestEmployee;
+    return best_employee;
 }
 
-int findHighestRatedPeriod(int **ratings, int numEmployees, int numPeriods) 
+int FindHighestRatedPeriod(int **ratings, int num_of_employees, int num_of_periods) 
 {
-    int bestPeriod = 0;
-    double highestAverage = 0.0;
+    int best_period = 0;
+    double highest_average = 0.0;
 
-    for (int j = 0; j < numPeriods; j++) 
+    for (int j = 0; j < num_of_periods; j++) 
     {
         int total = 0;
         
-        for (int i = 0; i < numEmployees; i++) 
+        for (int i = 0; i < num_of_employees; i++) 
         {
             total += ratings[i][j];
         }
-        double average = (double)total / numEmployees;
+        double average = (double)total / num_of_employees;
         
-        if (average > highestAverage) 
+        if (average > highest_average) 
         {
-            highestAverage = average;
-            bestPeriod = j;
+            highest_average = average;
+            best_period = j;
         }
     }
-    return bestPeriod;
+    return best_period;
 }
 
-int findWorstPerformingEmployee(int **ratings, int numEmployees, int numPeriods) 
+int FindWorstPerformingEmployee(int **ratings, int num_of_employees, int num_of_periods) 
 {
-    int worstEmployee = 0;
-    double lowestAverage = 10.0; 
+    int worst_employee = 0;
+    double lowest_average = 10.0; 
 
-    for (int i = 0; i < numEmployees; i++) 
+    for (int i = 0; i < num_of_employees; i++) 
     {
         int total = 0;
         
-        for (int j = 0; j < numPeriods; j++) 
+        for (int j = 0; j < num_of_periods; j++) 
         {
             total += ratings[i][j];
         }
-        double average = (double)total / numPeriods;
+        double average = (double)total / num_of_periods;
         
-        if (average < lowestAverage) 
+        if (average < lowest_average) 
         {
-            lowestAverage = average;
-            worstEmployee = i;
+            lowest_average = average;
+            worst_employee = i;
         }
     }
     
-    return worstEmployee;
+    return worst_employee;
 }
